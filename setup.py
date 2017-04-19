@@ -70,7 +70,7 @@ setup(
 
     license='Apache License 2.0',
 
-    packages=find_packages(include=['facefinder']),
+    packages=find_packages(),
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
