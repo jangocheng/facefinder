@@ -6,19 +6,29 @@ https://packaging.python.org/en/latest/distributing.html
 from setuptools import setup, find_packages
 # To use a consistent encoding
 from codecs import open
-from os import path
+import os
+import re
 
-here = path.abspath(path.dirname(__file__))
+ROOT = os.path.dirname(__file__)
+VERSION_RE = re.compile(r'''__version__ = ['"]([0-9.]+)['"]''')
+
+requires = [
+    'numpy>=1.12.1',
+    'tensorflow>=1.0.0',
+    'nose',
+]
+
+
+# Define package version
+def get_version():
+    init = open(os.path.join(ROOT, 'facefinder', '__init__.py')).read()
+    return VERSION_RE.search(init).group(1)
 
 
 # Get the long description from the README file
 def readme():
-    with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-        return f.read()
+    open('README.rst').read()
 
-
-# Define package version
-version = open("version.txt").read().rstrip()
 
 setup(
     name='facefinder',
@@ -27,7 +37,7 @@ setup(
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
 
-    version=version,
+    version=get_version(),
 
     description='Face Detection using deep learning',
 
@@ -74,11 +84,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=[
-        'numpy>=1.12.1',
-        'tensorflow>=1.0.0',
-        'nose',
-    ],
+    install_requires=requires,
 
     test_suite='nose.collector',
 
