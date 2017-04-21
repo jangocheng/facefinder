@@ -28,9 +28,13 @@ def load_dataset():
                 image_file = os.path.join(config.FACES_FOLDER_DIR, folder, image)
 
                 if os.path.isfile(image_file):
-                    img = resize(io.imread(image_file), config.IMAGE_DIMENSION)
-                    image_numpy_data.append(img)
-                    image_vector_data.append(config.FACES_VECTOR)
+                    try:
+                        img = resize(io.imread(image_file), config.IMAGE_DIMENSION)
+                        image_numpy_data.append(img)
+                        image_vector_data.append(config.FACES_VECTOR)
+
+                    except IOError:
+                        print("Image type not found {}".format(image_file))
 
     # Load NONfaces (NONfaces samples)
     for folder in os.listdir(config.NON_FACES_FOLDER_DIR):
@@ -41,9 +45,12 @@ def load_dataset():
                 image_file = os.path.join(config.NON_FACES_FOLDER_DIR, folder, image)
 
                 if os.path.isfile(image_file):
-                    img = resize(io.imread(image_file), config.IMAGE_DIMENSION)
-                    image_numpy_data.append(img)
-                    image_vector_data.append(config.NON_FACES_VECTOR)
+                    try:
+                        img = resize(io.imread(image_file), config.IMAGE_DIMENSION)
+                        image_numpy_data.append(img)
+                        image_vector_data.append(config.NON_FACES_VECTOR)
+                    except IOError:
+                        print("Image type not found {}".format(image_file))
 
     x_train, x_test, y_train, y_test = train_test_split(image_numpy_data, image_vector_data, test_size=0.4,
                                                         random_state=4)
