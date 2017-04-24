@@ -8,7 +8,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FACES_FOLDER_DIR = "{}/data/faces".format(BASE_DIR)
 NON_FACES_FOLDER_DIR = "{}/data/nonfaces".format(BASE_DIR)
 
-IMAGE_DIMENSION = (32, 32)
+IMAGE_DIMENSION = (64, 64)
+NUM_CLASSES = 2
+IMAGE_SIZE = 64
 
 FACES_VECTOR = [1, 0]
 NON_FACES_VECTOR = [0, 1]
